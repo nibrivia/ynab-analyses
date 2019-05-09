@@ -1,0 +1,4 @@
+transactions.*
+*.pyc
+*.swp
+token
