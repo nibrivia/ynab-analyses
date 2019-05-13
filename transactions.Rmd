@@ -1,0 +1,39 @@
+---
+title: "YNAB transactions"
+author: "Olivia Brode-Roger"
+date: "5/9/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(hrbrthemes)
+```
+
+```{r data, }
+transactions <- read_csv("transactions.csv") %>% 
+  filter(!(account_name %in% c("403(b) - ICivics", "IRA (TC)", "Safety Net", "Taxable (TC)", "Security Deposit"))) %>% 
+  mutate(amount = amount/1000)
+```
+
+```{r plots, }
+transactions %>%
+  arrange(date) %>% 
+  group_by(account_name) %>% 
+    mutate(balance = cumsum(amount)) %>% 
+  
+  ggplot(aes(x = date,
+             y = balance,
+             color = account_name,
+             fill  = account_name)) +
+  geom_step() +
+  
+  scale_x_date(date_labels = "%b '%y",
+               date_breaks = "3 month",
+               date_minor_breaks = "1 month") +
+  scale_y_comma() +
+  
+  labs(x = NULL, y = NULL) +
+  theme_ipsum_rc() #+
+  facet_wrap(~account_name)
+```
