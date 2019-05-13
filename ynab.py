@@ -23,5 +23,4 @@ def txs_to_csv(transactions, filename = "transactions.csv"):
 if __name__ == "__main__":
     transactions = import_txs("transactions.json")
     txs_to_csv(transactions = transactions, filename = "transactions.csv")
-    print("done")
 

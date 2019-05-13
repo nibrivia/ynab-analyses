@@ -2,3 +2,4 @@ transactions.*
 *.pyc
 *.swp
 token
+.Rproj.user
